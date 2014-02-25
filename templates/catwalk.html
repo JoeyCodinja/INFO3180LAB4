@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8" />
+  <title>Cat Walk</title>
+ </head>
+ <body>
+  
+   <img style="position:absolute;" src="{{url_for('static',filename='cat.gif')}}">
+  
+  <script>
+var img = document.getElementsByTagName('img')[0];
+var walkForwards = true;
+
+    window.onload = function(){
+                                 console.log(localStorage.location);
+                                 console.log(localStorage.direction);
+                                   if(localStorage.location != 'null') 
+                                   {
+                                     img.style.left = localStorage.location + 'px';
+                                     if(localStorage.direction == 'backwards')
+                                     {
+                                       walkForwards = false;
+                                     }
+                                   }
+                                 else
+                                 {
+                                   img.style.left = '0px';
+                                 }
+    }    
+
+    //Adding Meow to Cat on MouseOver 
+var meow = document.createElement('audio');
+    meow.preload = 'auto';
+var audio = document.createElement('source');
+    audio.src= "/static/audio/cat-meow-4.mp3";
+    audio.type = 'audio/mpeg';
+    meow.insertAdjacentElement('beforeEnd',audio);
+    document.getElementsByTagName('body')[0].insertAdjacentElement('beforeEnd',meow);
+    document.getElementsByTagName('img')[0].onmouseover = function(){meow.load();
+                                                                    meow.play();
+                                                                   };
+    // Audio Add End
+
+
+localStorage.direction = 'forwards'
+
+function catWalk() {
+  var currentLeft = parseInt(img.style.left);
+  localStorage.location = JSON.stringify(parseInt(img.style.left));          //stores the location of the Cat on the screen
+  if (walkForwards && (currentLeft > (window.innerWidth-img.width))) {
+    walkForwards = false;
+    localStorage.direction = 'backwards';
+  }
+  if (!walkForwards && (currentLeft <= 0)) {
+    walkForwards = true;
+    localStorage.direction = 'forwards';
+  }
+  
+  if (walkForwards) {
+    img.style.left = (currentLeft + 10) + 'px';
+  } else {
+    img.style.left = (currentLeft - 10) + 'px';
+  }
+}
+window.setInterval(catWalk, 50);
+  </script>
+
+ </body>
+</html>

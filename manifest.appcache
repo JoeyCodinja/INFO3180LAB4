@@ -1,0 +1,25 @@
+CACHE MANIFEST 
+
+# version 2014-02-19 09:30:44 va
+
+CACHE:
+
+# html files
+ 
+
+# css files
+static/style/style.css
+
+# scripts 
+http://thecodeplayer.com/uploads/js/prefixfree-1.0.7.js 
+static/behaviour/calc.js
+
+# images
+
+# misc
+
+FALLBACK:
+/ /
+
+NETWORK:
+*
